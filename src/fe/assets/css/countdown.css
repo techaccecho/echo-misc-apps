@@ -1,0 +1,600 @@
+/* =========================================
+   RESET
+========================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#000;
+    font-family:"Courier New", monospace;
+}
+
+/* =========================================
+   BODY
+========================================= */
+
+body{
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #020b02 0%,
+            #010201 45%,
+            #000000 100%
+        );
+
+    color:#7dff9b;
+
+    position:relative;
+
+    transition:
+        background 4s ease,
+        filter 2s ease;
+}
+
+/* Scanlines */
+
+body::before{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,0.005),
+            rgba(255,255,255,0.005) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+
+    opacity:0.18;
+
+    pointer-events:none;
+}
+
+/* Vignette */
+
+body::after{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle,
+            transparent 40%,
+            rgba(0,0,0,0.92) 100%
+        );
+
+    pointer-events:none;
+}
+
+/* =========================================
+   MAIN CONTAINER
+========================================= */
+
+.container{
+
+    position:relative;
+    z-index:5;
+
+    text-align:center;
+
+    padding:20px;
+}
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+.message{
+
+    color:#6ea17a;
+
+    text-transform:uppercase;
+
+    letter-spacing:6px;
+
+    font-size:
+        clamp(0.9rem, 2vw, 1.2rem);
+
+    margin-bottom:40px;
+
+    opacity:0.55;
+
+    animation:
+        messagePulse 8s ease-in-out infinite;
+}
+
+/* =========================================
+   TIMER
+========================================= */
+
+.timer-wrapper{
+
+    position:relative;
+
+    display:inline-block;
+}
+
+#countdown{
+
+    font-size:
+        clamp(3rem, 10vw, 9rem);
+
+    font-weight:bold;
+
+    letter-spacing:8px;
+
+    text-shadow:
+        0 0 8px rgba(80,255,120,0.22),
+        0 0 30px rgba(80,255,120,0.06);
+
+    animation:
+        softGlow 6s ease-in-out infinite,
+        softFlicker 5s infinite;
+}
+
+/* Ghost layer */
+
+#ghost{
+
+    position:absolute;
+    inset:0;
+
+    color:rgba(120,255,160,0.08);
+
+    filter:blur(1px);
+
+    pointer-events:none;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.subtext{
+
+    margin-top:40px;
+
+    color:rgba(180,255,200,0.08);
+
+    text-transform:uppercase;
+
+    letter-spacing:4px;
+
+    font-size:0.8rem;
+}
+
+/* =========================================
+   DOOR
+========================================= */
+
+.door{
+
+    position:absolute;
+
+    width:240px;
+    height:460px;
+
+    top:50%;
+    left:50%;
+
+    transform:translate(-50%, -50%);
+
+    opacity:0.12;
+
+    pointer-events:none;
+
+    border:
+        1px solid rgba(120,255,160,0.06);
+
+    box-shadow:
+        0 0 40px rgba(120,255,160,0.02);
+
+    z-index:1;
+}
+
+/* Door panels */
+
+.left-door,
+.right-door{
+
+    position:absolute;
+
+    top:0;
+
+    width:50%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            to bottom,
+            rgba(0,25,0,0.25),
+            rgba(0,0,0,0.95)
+        );
+
+    overflow:hidden;
+
+    transition:
+        transform 6s cubic-bezier(.7,0,.2,1),
+        opacity 5s ease;
+}
+
+/* Scratches */
+
+.left-door::before,
+.right-door::before{
+
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            transparent 18px,
+            rgba(120,255,160,0.01) 19px,
+            transparent 20px
+        );
+
+    opacity:0.25;
+}
+
+.left-door{
+
+    left:0;
+
+    border-right:
+        1px solid rgba(120,255,160,0.04);
+}
+
+.right-door{
+
+    right:0;
+
+    border-left:
+        1px solid rgba(120,255,160,0.04);
+}
+
+/* Door open */
+
+.door.open .left-door{
+
+    transform:
+        translateX(-135%)
+        rotateY(-35deg);
+
+    opacity:0;
+}
+
+.door.open .right-door{
+
+    transform:
+        translateX(135%)
+        rotateY(35deg);
+
+    opacity:0;
+}
+
+/* =========================================
+   DARK VOID
+========================================= */
+
+.light{
+
+    position:absolute;
+
+    width:0;
+    height:0;
+
+    top:50%;
+    left:50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius:50%;
+
+    opacity:0;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,20,0,0.95) 0%,
+            rgba(0,10,0,0.98) 20%,
+            rgba(0,0,0,1) 65%
+        );
+
+    filter:blur(25px);
+
+    pointer-events:none;
+
+    z-index:0;
+}
+
+.light.active{
+
+    width:260vw;
+    height:260vw;
+
+    opacity:1;
+
+    transition:
+        all 9s ease-out;
+}
+
+/* =========================================
+   VOID CORE
+========================================= */
+
+.void-core{
+
+    position:absolute;
+
+    top:50%;
+    left:50%;
+
+    width:0;
+    height:0;
+
+    transform:
+        translate(-50%, -50%);
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,0,0,1) 0%,
+            rgba(0,12,0,1) 55%,
+            transparent 100%
+        );
+
+    opacity:0;
+
+    filter:blur(8px);
+
+    z-index:1;
+
+    pointer-events:none;
+}
+
+.void-core.active{
+
+    width:1200px;
+    height:1200px;
+
+    opacity:1;
+
+    transition:
+        all 10s cubic-bezier(.7,0,.2,1);
+}
+
+/* =========================================
+   SHADOW FOG
+========================================= */
+
+.shadow-fog{
+
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(0,0,0,0) 0%,
+            rgba(0,0,0,0.45) 45%,
+            rgba(0,0,0,0.98) 100%
+        );
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:
+        opacity 6s ease;
+
+    z-index:2;
+}
+
+.shadow-fog.active{
+    opacity:1;
+}
+
+/* =========================================
+   SYMBOLS
+========================================= */
+
+.symbol{
+
+    position:absolute;
+
+    color:rgba(0,0,0,0);
+
+    font-size:5rem;
+
+    font-weight:bold;
+
+    opacity:0;
+
+    transition:
+        opacity 0.2s ease;
+
+    text-shadow:
+        0 0 15px rgba(120,255,160,0.2);
+
+    user-select:none;
+
+    z-index:3;
+}
+
+.symbol.show{
+
+    opacity:0.09;
+
+    color:rgba(120,255,160,0.12);
+}
+
+.symbol.one{
+    top:12%;
+    left:18%;
+}
+
+.symbol.two{
+    bottom:16%;
+    right:20%;
+}
+
+.symbol.three{
+    top:22%;
+    right:12%;
+}
+
+/* =========================================
+   FINAL STATE
+========================================= */
+
+.final{
+
+    color:#d8ffe2;
+
+    animation:
+        unsettlingPulse 4s infinite;
+
+    text-shadow:
+        0 0 12px rgba(200,255,220,0.12),
+        0 0 40px rgba(120,255,160,0.08);
+}
+
+@keyframes unsettlingPulse{
+
+    0%,100%{
+
+        opacity:1;
+
+        transform:scale(1);
+
+        filter:blur(0px);
+
+        text-shadow:
+            0 0 10px rgba(180,255,200,0.08);
+    }
+
+    50%{
+
+        opacity:0.55;
+
+        transform:scale(1.08);
+
+        filter:blur(1px);
+
+        text-shadow:
+            0 0 22px rgba(180,255,200,0.16),
+            0 0 40px rgba(120,255,160,0.6),
+            0 0 80px rgba(120,255,160,0.4);
+    }
+}
+
+/* =========================================
+   ANIMATIONS
+========================================= */
+
+@keyframes softGlow{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.02);
+    }
+}
+
+@keyframes softFlicker{
+
+    0%,100%{
+        opacity:1;
+    }
+
+    50%{
+        opacity:0.92;
+    }
+}
+
+@keyframes messagePulse{
+
+    0%,100%{
+        opacity:0.55;
+    }
+
+    50%{
+        opacity:0.35;
+    }
+}
+
+/* =========================================
+   SCREEN SHAKE
+========================================= */
+
+.screen-shake{
+
+    animation:
+        shake 0.08s infinite;
+}
+
+@keyframes shake{
+
+    0%{
+        transform:translate(0px,0px);
+    }
+
+    25%{
+        transform:translate(-2px,1px);
+    }
+
+    50%{
+        transform:translate(2px,-1px);
+    }
+
+    75%{
+        transform:translate(-1px,-2px);
+    }
+
+    100%{
+        transform:translate(1px,2px);
+    }
+}
+
+/* =========================================
+   UNLOCKED WORLD
+========================================= */
+
+body.unlocked{
+
+    background:
+        radial-gradient(
+            circle at center,
+            #001100 0%,
+            #000000 100%
+        );
+}
