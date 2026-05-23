@@ -101,6 +101,53 @@ body::after{
 }
 
 /* =========================================
+   ACTION BUTTON
+========================================= */
+
+.action-wrapper {
+    margin-top: 40px;
+    height: 60px; /* Prevent layout shift */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    background: transparent;
+    border: 1px solid #7dff9b;
+    color: #7dff9b;
+    padding: 12px 30px;
+    font-family: "Courier New", monospace;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+}
+
+.btn.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.btn:hover:not(:disabled) {
+    background: rgba(125, 255, 155, 0.1);
+    box-shadow: 0 0 15px rgba(125, 255, 155, 0.3);
+    text-shadow: 0 0 5px rgba(125, 255, 155, 0.5);
+}
+
+.btn:disabled {
+    border-color: #333;
+    color: #333;
+    cursor: not-allowed;
+}
+
+/* =========================================
    MESSAGE
 ========================================= */
 
@@ -212,7 +259,7 @@ body::after{
     z-index:1;
 }
 
-/* Door panels */
+/* Door Panels (Closed) */
 
 .left-door,
 .right-door{
@@ -276,29 +323,8 @@ body::after{
         1px solid rgba(120,255,160,0.04);
 }
 
-/* Door open */
 
-.door.open .left-door{
-
-    transform:
-        translateX(-135%)
-        rotateY(-35deg);
-
-    opacity:0;
-}
-
-.door.open .right-door{
-
-    transform:
-        translateX(135%)
-        rotateY(35deg);
-
-    opacity:0;
-}
-
-/* =========================================
-   DARK VOID
-========================================= */
+/* DARK VOID (INACTIVE) */
 
 .light{
 
@@ -332,20 +358,8 @@ body::after{
     z-index:0;
 }
 
-.light.active{
 
-    width:260vw;
-    height:260vw;
-
-    opacity:1;
-
-    transition:
-        all 9s ease-out;
-}
-
-/* =========================================
-   VOID CORE
-========================================= */
+/* VOID CORE (INACTIVE) */
 
 .void-core{
 
@@ -379,20 +393,8 @@ body::after{
     pointer-events:none;
 }
 
-.void-core.active{
 
-    width:1200px;
-    height:1200px;
-
-    opacity:1;
-
-    transition:
-        all 10s cubic-bezier(.7,0,.2,1);
-}
-
-/* =========================================
-   SHADOW FOG
-========================================= */
+/* SHADOW FOG (INACTIVE) */
 
 .shadow-fog{
 
@@ -417,13 +419,8 @@ body::after{
     z-index:2;
 }
 
-.shadow-fog.active{
-    opacity:1;
-}
 
-/* =========================================
-   SYMBOLS
-========================================= */
+/* SYMBOLS (HIDDEN) */
 
 .symbol{
 
@@ -448,12 +445,6 @@ body::after{
     z-index:3;
 }
 
-.symbol.show{
-
-    opacity:0.09;
-
-    color:rgba(120,255,160,0.12);
-}
 
 .symbol.one{
     top:12%;
@@ -470,50 +461,6 @@ body::after{
     right:12%;
 }
 
-/* =========================================
-   FINAL STATE
-========================================= */
-
-.final{
-
-    color:#d8ffe2;
-
-    animation:
-        unsettlingPulse 4s infinite;
-
-    text-shadow:
-        0 0 12px rgba(200,255,220,0.12),
-        0 0 40px rgba(120,255,160,0.08);
-}
-
-@keyframes unsettlingPulse{
-
-    0%,100%{
-
-        opacity:1;
-
-        transform:scale(1);
-
-        filter:blur(0px);
-
-        text-shadow:
-            0 0 10px rgba(180,255,200,0.08);
-    }
-
-    50%{
-
-        opacity:0.55;
-
-        transform:scale(1.08);
-
-        filter:blur(1px);
-
-        text-shadow:
-            0 0 22px rgba(180,255,200,0.16),
-            0 0 40px rgba(120,255,160,0.6),
-            0 0 80px rgba(120,255,160,0.4);
-    }
-}
 
 /* =========================================
    ANIMATIONS
@@ -552,49 +499,4 @@ body::after{
     }
 }
 
-/* =========================================
-   SCREEN SHAKE
-========================================= */
 
-.screen-shake{
-
-    animation:
-        shake 0.08s infinite;
-}
-
-@keyframes shake{
-
-    0%{
-        transform:translate(0px,0px);
-    }
-
-    25%{
-        transform:translate(-2px,1px);
-    }
-
-    50%{
-        transform:translate(2px,-1px);
-    }
-
-    75%{
-        transform:translate(-1px,-2px);
-    }
-
-    100%{
-        transform:translate(1px,2px);
-    }
-}
-
-/* =========================================
-   UNLOCKED WORLD
-========================================= */
-
-body.unlocked{
-
-    background:
-        radial-gradient(
-            circle at center,
-            #001100 0%,
-            #000000 100%
-        );
-}

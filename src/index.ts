@@ -57,8 +57,9 @@ fastify.get("/countdown", async (request, reply) => {
     const filePath = path.join(__dirname, ".", "fe/count-down/countdown.html");
     let content = fs.readFileSync(filePath, "utf8");
     
-    // Inject target timestamp from backend
+    // Inject target timestamp and initial state from backend
     const targetTimestamp = countdownService.getTargetTimestamp();
+    const initialState = JSON.stringify(countdownService.getCountDownData());
     
     // Ensure the marker exists before replacing
     if (!content.includes("/* BACKEND_TARGET_TIMESTAMP */")) {
@@ -67,7 +68,12 @@ fastify.get("/countdown", async (request, reply) => {
 
     content = content.replace(
       "/* BACKEND_TARGET_TIMESTAMP */",
-      `const backendTargetTimestamp = ${targetTimestamp};`
+      `const backendTargetTimestamp = ${targetTimestamp};
+<<<<<<< HEAD
+       const backendInitialState = ${initialState.replace(/</g, "\\u003c")};`
+=======
+       const backendInitialState = ${initialState};`
+>>>>>>> a11ce0b1530d646d050b506c4c4da07cb56a3bd6
     );
 
     reply.type("text/html").send(content);
