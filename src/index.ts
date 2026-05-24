@@ -69,11 +69,7 @@ fastify.get("/countdown", async (request, reply) => {
     content = content.replace(
       "/* BACKEND_TARGET_TIMESTAMP */",
       `const backendTargetTimestamp = ${targetTimestamp};
-<<<<<<< HEAD
        const backendInitialState = ${initialState.replace(/</g, "\\u003c")};`
-=======
-       const backendInitialState = ${initialState};`
->>>>>>> a11ce0b1530d646d050b506c4c4da07cb56a3bd6
     );
 
     reply.type("text/html").send(content);

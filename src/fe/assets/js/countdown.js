@@ -21,10 +21,7 @@ const countdown = document.getElementById("countdown");
 const ghost = document.getElementById("ghost");
 const message = document.querySelector(".message");
 const subtext = document.querySelector(".subtext");
-<<<<<<< HEAD
 const redirectButton = document.getElementById("redirectButton");
-=======
->>>>>>> a11ce0b1530d646d050b506c4c4da07cb56a3bd6
 const door = document.getElementById("door");
 const light = document.getElementById("light");
 const voidCore = document.getElementById("voidCore");
@@ -41,10 +38,7 @@ const symbols = [
 
 let unlocked = false;
 let backendState = (typeof backendInitialState !== 'undefined') ? backendInitialState : null;
-<<<<<<< HEAD
 let currentTargetTimestamp = (typeof backendTargetTimestamp !== 'undefined') ? backendTargetTimestamp : 0;
-=======
->>>>>>> a11ce0b1530d646d050b506c4c4da07cb56a3bd6
 let lastSyncTime = backendState ? Date.now() : 0;
 
 /* =========================================
@@ -57,12 +51,9 @@ async function syncWithBackend() {
         const result = await response.json();
         if (result.success) {
             backendState = result.data;
-<<<<<<< HEAD
             if (backendState.targetTimestamp) {
                 currentTargetTimestamp = backendState.targetTimestamp;
             }
-=======
->>>>>>> a11ce0b1530d646d050b506c4c4da07cb56a3bd6
             return result.data;
         }
     } catch (e) {
@@ -79,7 +70,6 @@ async function unlockDoor() {
     if (unlocked) return;
     unlocked = true;
 
-<<<<<<< HEAD
     // Dynamically load the unlocked CSS
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -100,24 +90,12 @@ async function unlockDoor() {
     const status = (data && data.status) ? data.status : (backendState && backendState.status ? backendState.status : {});
     const messages = (status && status.messages) ? status.messages : {};
 
-=======
-    const data = await syncWithBackend();
-    const displayMessage = (data && data.message) ? data.message : "UNLOCKED";
-    const status = (data && data.status) ? data.status : (backendState && backendState.status ? backendState.status : {});
-    const messages = (status && status.messages) ? status.messages : {};
-
->>>>>>> a11ce0b1530d646d050b506c4c4da07cb56a3bd6
     countdown.textContent = displayMessage;
     ghost.textContent = displayMessage;
     countdown.classList.add("final");
 
-<<<<<<< HEAD
     message.textContent = messages.currentMessage || "THE SEAL HAS BEEN BROKEN";
     subtext.textContent = messages.currentSubtext || "SOMETHING IS COMING THROUGH";
-=======
-    message.textContent = messages.currentMessage || messages.sealBroken || "THE SEAL HAS BEEN BROKEN";
-    subtext.textContent = messages.currentSubtext || messages.somethingComing || "SOMETHING IS COMING THROUGH";
->>>>>>> a11ce0b1530d646d050b506c4c4da07cb56a3bd6
 
     /* Initial darkness pulse */
     document.body.style.filter = "brightness(0.3)";
@@ -168,11 +146,7 @@ async function unlockDoor() {
         document.body.classList.remove("screen-shake");
     }, 8000);
 
-<<<<<<< HEAD
     /* Final message - using backend provided string if available */
-=======
-    /* Final message */
->>>>>>> a11ce0b1530d646d050b506c4c4da07cb56a3bd6
     setTimeout(() => {
         message.textContent = messages.itKnows || "IT KNOWS YOU ARE HERE";
     }, 9000);
@@ -194,14 +168,8 @@ async function unlockDoor() {
 ========================================= */
 
 async function updateCountdown() {
-<<<<<<< HEAD
     const now = Date.now();
     const difference = currentTargetTimestamp - now;
-=======
-    // Rely on backend for core logic periodically, but calculate locally for smoothness
-    const now = Date.now();
-    const difference = backendTargetTimestamp - now;
->>>>>>> a11ce0b1530d646d050b506c4c4da07cb56a3bd6
 
     if (difference <= 0) {
         unlockDoor();
@@ -209,14 +177,17 @@ async function updateCountdown() {
     }
 
     // Determine sync interval based on how close we are to the target
-    // Far (> 1 hour): Sync every 5 minutes
-    // Close (<= 1 hour): Sync every 30 seconds
-    // Imminent (<= 1 minute): Sync every 10 seconds
-    let syncInterval = 300000; // 5 minutes
+    // Far (> 1 hour): Sync every 15 minutes
+    // Close (< 1 hour): Sync every 5 minutes
+    // Imminent (< 5 minutes): Sync every 30 seconds
+    // Final (< 1 minute): Sync every 10 seconds
+    let syncInterval = 900000; // 15 minutes
     if (difference <= 60000) {
         syncInterval = 10000; // 10 seconds
+    } else if (difference <= 300000) {
+        syncInterval = 60000; // 30 seconds
     } else if (difference <= 3600000) {
-        syncInterval = 30000; // 30 seconds
+        syncInterval = 300000; // 5 minutes
     }
 
     if (!backendState || (now - lastSyncTime) >= syncInterval) {
@@ -258,13 +229,8 @@ async function updateCountdown() {
     if (backendState && backendState.status && backendState.status.messages) {
         const msgs = backendState.status.messages;
         if (!unlocked) {
-<<<<<<< HEAD
             message.textContent = msgs.currentMessage;
             subtext.textContent = msgs.currentSubtext;
-=======
-            message.textContent = msgs.currentMessage || msgs.defaultMessage;
-            subtext.textContent = msgs.currentSubtext || msgs.defaultSubtext;
->>>>>>> a11ce0b1530d646d050b506c4c4da07cb56a3bd6
         }
     }
 

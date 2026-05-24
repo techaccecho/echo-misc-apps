@@ -21,10 +21,7 @@ const countdownSchema: FastifySchema = {
             targetDate: { type: "string" },
             targetTimestamp: { type: "number" },
             message: { type: ["string", "null"] },
-<<<<<<< HEAD
             redirectUrl: { type: ["string", "null"] },
-=======
->>>>>>> a11ce0b1530d646d050b506c4c4da07cb56a3bd6
             status: {
               type: "object",
               properties: {
@@ -44,19 +41,9 @@ const countdownSchema: FastifySchema = {
                 messages: {
                   type: "object",
                   properties: {
-<<<<<<< HEAD
                     currentMessage: { type: "string" },
                     currentSubtext: { type: "string" },
                     itKnows: { type: "string" },
-=======
-                    sealBroken: { type: "string" },
-                    somethingComing: { type: "string" },
-                    itKnows: { type: "string" },
-                    defaultMessage: { type: "string" },
-                    defaultSubtext: { type: "string" },
-                    currentMessage: { type: "string" },
-                    currentSubtext: { type: "string" },
->>>>>>> a11ce0b1530d646d050b506c4c4da07cb56a3bd6
                   },
                 },
               },
