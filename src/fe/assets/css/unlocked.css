@@ -2,111 +2,108 @@
    DOOR OPEN STATE
 ========================================= */
 
-.door.open .left-door{
-    transform:
-        translateX(-135%)
-        rotateY(-35deg);
-    opacity:0;
+.door.open .left-door {
+	transform: translateX(-135%) rotateY(-35deg);
+	opacity: 0;
 }
 
-.door.open .right-door{
-    transform:
-        translateX(135%)
-        rotateY(35deg);
-    opacity:0;
+.door.open .right-door {
+	transform: translateX(135%) rotateY(35deg);
+	opacity: 0;
 }
 
 /* =========================================
    ACTIVE DARK VOID
 ========================================= */
 
-.light.active{
-    width:260vw;
-    height:260vw;
-    opacity:1;
-    transition:
-        all 9s ease-out;
+.light.active {
+	width: 260vw;
+	height: 260vw;
+	opacity: 1;
+	transition: all 9s ease-out;
 }
 
-.void-core.active{
-    width:1200px;
-    height:1200px;
-    opacity:1;
-    transition:
-        all 10s cubic-bezier(.7,0,.2,1);
+.void-core.active {
+	width: 1200px;
+	height: 1200px;
+	opacity: 1;
+	transition: all 10s cubic-bezier(0.7, 0, 0.2, 1);
 }
 
-.shadow-fog.active{
-    opacity:1;
+.shadow-fog.active {
+	opacity: 1;
 }
 
 /* =========================================
    SYMBOLS REVEAL
 ========================================= */
 
-.symbol.show{
-    opacity:0.09;
-    color:rgba(120,255,160,0.12);
+.symbol.show {
+	opacity: 0.09;
+	color: rgba(120, 255, 160, 0.12);
 }
 
 /* =========================================
    FINAL STATE (UNLOCKED)
 ========================================= */
 
-.final{
-    color:#d8ffe2;
-    animation:
-        unsettlingPulse 4s infinite;
-    text-shadow:
-        0 0 12px rgba(200,255,220,0.12),
-        0 0 40px rgba(120,255,160,0.08);
+.final {
+	color: #d8ffe2;
+	animation: unsettlingPulse 4s infinite;
+	text-shadow:
+		0 0 12px rgba(200, 255, 220, 0.12),
+		0 0 40px rgba(120, 255, 160, 0.08);
 }
 
-@keyframes unsettlingPulse{
-    0%,100%{
-        opacity:1;
-        transform:scale(1);
-        filter:blur(0px);
-        text-shadow:
-            0 0 10px rgba(180,255,200,0.08);
-    }
-    50%{
-        opacity:0.55;
-        transform:scale(1.08);
-        filter:blur(1px);
-        text-shadow:
-            0 0 22px rgba(180,255,200,0.16),
-            0 0 40px rgba(120,255,160,0.6),
-            0 0 80px rgba(120,255,160,0.4);
-    }
+@keyframes unsettlingPulse {
+	0%,
+	100% {
+		opacity: 1;
+		transform: scale(1);
+		filter: blur(0px);
+		text-shadow: 0 0 10px rgba(180, 255, 200, 0.08);
+	}
+	50% {
+		opacity: 0.55;
+		transform: scale(1.08);
+		filter: blur(1px);
+		text-shadow:
+			0 0 22px rgba(180, 255, 200, 0.16),
+			0 0 40px rgba(120, 255, 160, 0.6),
+			0 0 80px rgba(120, 255, 160, 0.4);
+	}
 }
 
 /* =========================================
    SCREEN SHAKE
 ========================================= */
 
-.screen-shake{
-    animation:
-        shake 0.08s infinite;
+.screen-shake {
+	animation: shake 0.08s infinite;
 }
 
-@keyframes shake{
-    0%{ transform:translate(0px,0px); }
-    25%{ transform:translate(-2px,1px); }
-    50%{ transform:translate(2px,-1px); }
-    75%{ transform:translate(-1px,-2px); }
-    100%{ transform:translate(1px,2px); }
+@keyframes shake {
+	0% {
+		transform: translate(0px, 0px);
+	}
+	25% {
+		transform: translate(-2px, 1px);
+	}
+	50% {
+		transform: translate(2px, -1px);
+	}
+	75% {
+		transform: translate(-1px, -2px);
+	}
+	100% {
+		transform: translate(1px, 2px);
+	}
 }
 
 /* =========================================
    UNLOCKED WORLD
 ========================================= */
 
-body.unlocked{
-    background:
-        radial-gradient(
-            circle at center,
-            #001100 0%,
-            #000000 100%
-        );
+body.unlocked {
+	background: radial-gradient(circle at center, #001100 0%, #000000 100%);
 }
